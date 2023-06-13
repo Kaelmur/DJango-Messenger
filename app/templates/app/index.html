@@ -1,0 +1,35 @@
+{% extends 'app/base.html' %}
+{% block title %}Wasp{% endblock %}
+{% block content %}
+{% load static %}
+{% if not user.is_authenticated %}
+<div class="container px-4 px-lg-5">
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>Register or Login to continue</h1>
+    </div>
+</div>
+{% else %}
+<div class="container px-4 px-lg-5">
+    <div class="gg">
+        <h1 style="text-align: center; margin-top: 50px;">Chat Rooms</h1>
+        <br>
+        {% if user.is_authenticated %}
+        {% for chat in Chats %}
+        <div class="card" style="width: 18rem; margin-top: 20px; display: inline-block; margin-left: 12px; text-align: center; margin-bottom: 10px;border-color: grey; background-color: #FFFFE8;">
+        <div class="card-body">
+        <h5 class="card-title" style="text-align: center;">{{ chat.title }}</h5>
+        <p class="card-text" style="text-align: center;">Created: {{ chat.timestamp }}</p>
+        <a href="{% url 'chat-detail' chat.id %}" class="btn btn-success">Join</a>
+          {% if user.is_superuser %}
+          <a class="btn btn-dark" href="{% url 'chat-update' chat.id %}">Update</a>
+          <a class="btn btn-danger" href="{% url 'chat-delete' chat.id %}">Delete</a>
+            </div>
+             </div>
+           {% endif %}
+          {% endfor %}
+          {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+

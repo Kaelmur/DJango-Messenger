@@ -1,0 +1,31 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Chat Form{% endblock %}
+{% block content %}
+<div class="container px-4 px-lg-5" style="margin-top: 50px;">
+    <div style="text-align: center; height: 20%; margin-bottom: 50px;">
+        {% if update %}
+        <h1>Edit Chat</h1>
+        {% else %}
+        <h1>Create Chat</h1>
+        {% endif %}
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="border-top pt-3">
+              <form method="post">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                  <button class="btn btn-outline-dark" type="submit">Submit</button>
+                </div>
+              </form>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
